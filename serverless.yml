@@ -9,17 +9,22 @@ provider:
   name: aws
   runtime: nodejs20.x
   region: ap-south-1
+  environment:
+    FAT_SECRET_CONSUMER_KEY: ${env:FAT_SECRET_CONSUMER_KEY}
+    FAT_SECRET_CONSUMER_SECRET: ${env:FAT_SECRET_CONSUMER_SECRET}
   # Uncomment to easily set up a custom domain. Read the docs for more details:
   # https://www.serverless.com/framework/docs/providers/aws/guide/domains
   # domain: api.example.com
+
+useDotenv: true
 
 plugins:
   - serverless-offline
 
 functions:
   hello:
-    handler: handler.hello
+    handler: handler.searchFoods
     events:
       - httpApi:
-          path: /
+          path: /foods/search
           method: get
